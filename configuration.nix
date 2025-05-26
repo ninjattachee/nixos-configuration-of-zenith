@@ -9,10 +9,10 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./nvidia.nix
+      ./tensor-rt.nix
       ./plasma.nix
       ./services.nix
       ./FHS-user-env.nix
-      ./tensor-rt.nix
       ./docker.nix
     ];
 
@@ -57,7 +57,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes and nix-command
-  nix.settings.experimantal-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;

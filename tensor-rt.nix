@@ -3,7 +3,7 @@
 let
   myTensorRT = pkgs.stdenv.mkDerivation rec  {
     name = "tensorrt-10.9.0.34";
-    src = ./sources/TensorRT-10.9.0.34.Linux.x86_64-gnu.cuda-12.8.tar.gz;
+    src = /home/atank/Downloads/TensorRT-10.9.0.34.Linux.x86_64-gnu.cuda-12.8.tar.gz;
     nativeBuildInputs = [ pkgs.autoPatchelfHook ];
     buildInputs = [ 
       pkgs.cudaPackages.cuda_cudart 
