@@ -121,6 +121,9 @@
     -- Set colorscheme
     vim.cmd.colorscheme("tokyonight")
 
+    -- Enable line numbers
+    vim.opt.number = true
+
     -- Basic keymaps for Telescope
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
