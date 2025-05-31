@@ -15,7 +15,6 @@
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      cudaPackages.cudatoolkit
       nvidia-vaapi-driver
       libvdpau
     ];
