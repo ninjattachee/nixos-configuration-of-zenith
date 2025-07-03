@@ -14,6 +14,7 @@
       ./services.nix
       ./FHS-user-env.nix
       ./docker.nix
+      ./fonts.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -103,6 +104,7 @@
     wget
     curl
     code-cursor
+    zed-editor
     git
     gh
     lf
@@ -114,7 +116,9 @@
     gcc
     ranger
     htop
+    appimage-run
     openssh
+    openssl
     ollama-cuda
     tree
     tldr
@@ -150,8 +154,11 @@
   };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 80 443 11434 5432 ];
+  networking.firewall.allowedUDPPorts = [ ];
+  networking.firewall.allowedUDPPortRanges = [
+    { from = 10000; to = 13000; }
+  ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

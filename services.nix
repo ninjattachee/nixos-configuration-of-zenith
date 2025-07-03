@@ -114,6 +114,7 @@
       Environment = [
         "OLLAMA_MODELS=/mnt/data/ollama/models"
         "CUDA_VISIBLE_DEVICES=0" # set cuda devices as needed.
+	"OLLAMA_HOST=0.0.0.0:11434"
       ];
     };
 
@@ -121,6 +122,20 @@
     preStart = ''
       chown -R ollama:ollama /mnt/data/ollama
       chmod -R 750 /mnt/data/ollama
+    '';
+  };
+
+  # Postgresql
+  services.postgresql = {
+    enable = true;
+    enableTCPIP = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+      local all all trust
+      host all all 0.0.0.0/0 scram-sha-256
+    '';
+    initialScript = pkgs.writeText "init.sql" ''
+      CREATE USER testuser WITH PASSWORD 'mypassword';
+      CREATE DATABASE testdatabase OWNER testuser;
     '';
   };
 }

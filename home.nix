@@ -146,12 +146,16 @@
       autojump
       zsh-autosuggestions
       zsh-syntax-highlighting
-      #nix-zsh-completions
       zsh-completions
       fira-code
       fira-code-symbols
       tmux
       ffmpeg
+      go
+      sqlite
+      postgresql
+      prisma
+      httpie
     ];
   };
 }
