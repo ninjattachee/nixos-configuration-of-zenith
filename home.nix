@@ -152,6 +152,7 @@
       tmux
       ffmpeg
       go
+      shotcut
       sqlite
       postgresql
       prisma

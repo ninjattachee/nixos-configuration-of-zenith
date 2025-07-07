@@ -86,6 +86,7 @@
     wantedBy = [ "multi-user.target" ];
   };
 
+
   # Ollama-cuda
   # add ollama group
   users.groups.ollama = {};

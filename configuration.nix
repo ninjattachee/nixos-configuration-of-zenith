@@ -12,6 +12,7 @@
       ./tensor-rt.nix
       ./plasma.nix
       ./services.nix
+      ./sing-box.nix
       ./FHS-user-env.nix
       ./docker.nix
       ./fonts.nix
@@ -22,10 +23,37 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+
   networking.hostName = "zenith"; # Define your hostname.
   # Pick only one of the below networking options.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+  # TUN/TAP support
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
+
+  # Add needed kernel modules
+  boot.kernelModules = ["tun"];
+  # Load TUN kernel module at boot time, ensure TUN/TAP available
+  boot.extraModprobeConfig = ''
+    options tun
+  '';
+
+  # Create TUN device
+  boot.kernel.sysctl."net.ipv4.conf.all.send_redirects" = 0;
+  boot.kernel.sysctl."net.ipv4.conf.default.send_redirects" = 0;
+
+  # Allow user atank to access TUN devices
+  users.groups.tun = {};
+
+  # Create TUN device permissions
+  services.udev.extraRules = ''
+    KERNEL=="tun", GROUP="tun", MODE="0664"
+  '';
+
 
   # Set your time zone.
   time.timeZone = "Asia/Chongqing";
@@ -84,7 +112,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.atank = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "tun" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     packages = with pkgs; [
       yt-dlp
@@ -128,6 +156,7 @@
     unzip
     bun
     uv
+    wireshark
 
     nvtopPackages.nvidia
     kdePackages.plasma-vault
@@ -159,6 +188,7 @@
   networking.firewall.allowedUDPPortRanges = [
     { from = 10000; to = 13000; }
   ];
+  networking.firewall.trustedInterfaces = ["tun"];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
