@@ -8,7 +8,7 @@
 
     serviceConfig = {
       Type = "simple";
-      ExecStart = "/home/atank/.local/bin/sing-box run -c /etc/sing-box/config.json";
+      ExecStart = "/usr/local/bin/sing-box run -c /etc/sing-box/config.json";
       Restart = "always";
       RestartSec = 5;
 
@@ -18,11 +18,11 @@
       User = "sing-box";
       Group = "tun";
     };
-  }
+  };
 
   # Create User
   users.users.sing-box = {
     isSystemUser = true;
     group = "tun";
-  }
+  };
 }

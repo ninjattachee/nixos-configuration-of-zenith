@@ -12,7 +12,6 @@
       ./tensor-rt.nix
       ./plasma.nix
       ./services.nix
-      ./sing-box.nix
       ./FHS-user-env.nix
       ./docker.nix
       ./fonts.nix

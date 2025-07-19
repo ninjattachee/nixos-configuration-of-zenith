@@ -157,6 +157,8 @@
       postgresql
       prisma
       httpie
+      wineWowPackages.unstable
+      winetricks # configure wine
     ];
   };
 }
