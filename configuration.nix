@@ -9,8 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./nvidia.nix
-      ./tensor-rt.nix
       ./plasma.nix
+      ./tensor-rt.nix
       ./services.nix
       ./FHS-user-env.nix
       ./docker.nix
